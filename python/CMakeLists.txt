@@ -8,7 +8,8 @@ add_custom_command(
   TARGET NPCOMPPythonResources
   COMMAND ${CMAKE_COMMAND} -E copy
         # TODO: Make the runtime library work for windows.
-        ${CMAKE_BINARY_DIR}/lib/libNPCOMPCompilerRuntimeShlib${CMAKE_SHARED_LIBRARY_SUFFIX}
+        #${CMAKE_BINARY_DIR}/mlir-npcomp/lib/libNPCOMPCompilerRuntimeShlib${CMAKE_SHARED_LIBRARY_SUFFIX}
+        ${CMAKE_BINARY_DIR}/mlir-npcomp/lib/RefBackend/Runtime/libNPCOMPCompilerRuntimeShlib${CMAKE_SHARED_LIBRARY_SUFFIX}
         ${CMAKE_CURRENT_BINARY_DIR}/npcomp/compiler/generic/backend/libNPCOMPCompilerRuntimeShlib${CMAKE_SHARED_LIBRARY_SUFFIX}
 )
 add_dependencies(NPCOMPPythonResources

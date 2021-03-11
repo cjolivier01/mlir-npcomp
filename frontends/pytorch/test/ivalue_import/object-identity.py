@@ -8,6 +8,7 @@ import torch
 import torch_mlir
 
 # RUN: %PYTHON %s | npcomp-opt | FileCheck %s
+
 mb = torch_mlir.ModuleBuilder()
 
 class TestModule(torch.nn.Module):
