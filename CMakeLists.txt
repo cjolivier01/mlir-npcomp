@@ -17,11 +17,31 @@ endif()
 # Options and settings
 #-------------------------------------------------------------------------------
 
+#add_subdirectory(external/llvm-project/llvm)
+
 option(NPCOMP_ENABLE_IREE "Enables the IREE backend (must configure location via IREE_DIR)." OFF)
 option(NPCOMP_ENABLE_REFJIT "Enables the reference JIT backend." ON)
 option(NPCOMP_BUILD_NPCOMP_DYLIB "Enables shared build of NPCOMP dylib (depends on LLVM/MLIR dylib support)" ON)
 set(NPCOMP_IREE_BUILDDIR "../iree-build" CACHE STRING "If building IREE, then setting this elects to build from a source directory (versus installed package)")
 set(NPCOMP_ENABLE_PYTORCH "OPTIONAL" CACHE STRING "Enables the PyTorch frontend (OFF, OPTIONAL, REQUIRED)")
+
+add_compile_options(-frtti)
+add_compile_options(-fPIC)
+
+set(MLIR_INCEX_DIR ${CMAKE_CURRENT_LIST_DIR}/mlir-npcomp/build/install-mlir/include)
+
+#set(LLVM_MAIN_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/external/llvm-project)
+#include_directories(${CMAKE_CURRENT_LIST_DIR}/mlir-npcomp/build/install-mlir/include)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/external/llvm-project/mlir/include)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/external/llvm-project/llvm/include)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/external/llvm-project/llvm/tools/mlir/include)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/llvm-project/mlir/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/llvm-project/llvm/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/external/llvm-project/llvm/tools/mlir/include)
+#include_directories(${CMAKE_CURRENT_LIST_DIR}/build/install-mlir/include)
+#link_directories(${CMAKE_CURRENT_LIST_DIR}/build/build-mlir/lib)
+#link_directories(${CMAKE_CURRENT_LIST_DIR}/build/install-mlir/lib)
 
 # Turn on -gsplit-dwarf if requested in debug builds.
 if (NPCOMP_USE_SPLIT_DWARF AND
@@ -163,7 +183,8 @@ endif()
 
 set(NPCOMP_PYTHON_BINDINGS_VERSION_LOCKED 1 CACHE BOOL
        "Links to specific python libraries, resolving all symbols.")
-find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+#find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
 message(STATUS "Found python include dirs: ${Python3_INCLUDE_DIRS}")
 message(STATUS "Found python libraries: ${Python3_LIBRARIES}")
 
@@ -178,7 +199,11 @@ NpcompFindPyTorch(${NPCOMP_ENABLE_PYTORCH})
 #-------------------------------------------------------------------------------
 
 npcomp_detect_pybind11_install()
-find_package(pybind11 2.6 CONFIG REQUIRED)
+#find_package(pybind11 2.6 CONFIG REQUIRED)
+#
+include(/srv/dev_machine/cb/toolchains/buildroot/monolith-default/74df1032-9b26-44a1-959c-f13e0554dc3c/rootfs-x86_64/usr/lib/python3.7/site-packages/pybind11/share/cmake/pybind11/pybind11Config.cmake)
+#find_package(pybind11 CONFIG REQUIRED)
+message(STATUS "pybind11_INCLUDE_DIR=${pybind11_INCLUDE_DIR}")
 set(pybind11_INCLUDE_DIR ${pybind11_INCLUDE_DIR})
 message(STATUS "Found pybind11 v${pybind11_VERSION}: ${pybind11_INCLUDE_DIR}")
 message(STATUS "Python prefix = '${PYTHON_MODULE_PREFIX}', "

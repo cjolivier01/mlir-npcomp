@@ -14,16 +14,20 @@ function(npcomp_detect_pybind11_install)
   else()
     message(STATUS "Checking for pybind11 in python path...")
     execute_process(
+      COMMAND echo "${Python3_EXECUTABLE}" -c "import pybind11;print(pybind11.get_cmake_dir(), end='')"
       COMMAND "${Python3_EXECUTABLE}"
       -c "import pybind11;print(pybind11.get_cmake_dir(), end='')"
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       RESULT_VARIABLE STATUS
       OUTPUT_VARIABLE PACKAGE_DIR
-      ERROR_QUIET)
+      #ERROR_QUIET
+    )
+    message(STATUS "IOUHBHNUIOHBNNNNNNNNNNNNNNNNNNNNN ${PACKAGE_DIR}")
     if(NOT STATUS EQUAL "0")
       message(CHECK_FAIL "not found (install via 'pip install pybind11' or set pybind11_DIR)")
       return()
     endif()
     set(pybind11_DIR "${PACKAGE_DIR}" PARENT_SCOPE)
+    set(pybind11_DIR "/home/chriso/src/ml_frameworks/toolchain/rootfs-x86_64/usr/lib/python3.7/site-packages/pybind11/share/cmake/pybind11" PARENT_SCOPE)
   endif()
 endfunction()

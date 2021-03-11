@@ -12,6 +12,7 @@
 #include <cassert>
 #include <cstdint>
 #include <cstring>
+#include <csignal>
 
 #include "CompilerDataStructures.h"
 
@@ -118,7 +119,11 @@ std::int32_t refbackrt::getElementTypeByteSize(ElementType type) {
   switch (type) {
   case ElementType::F32:
     return 4;
+  //case ElementType::F16:
+    return 2;
   }
+  raise(SIGTRAP); // ?
+  return 4;
 }
 
 Ref<Tensor> Tensor::create(ArrayRef<std::int32_t> extents, ElementType type,
