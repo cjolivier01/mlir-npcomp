@@ -214,6 +214,8 @@ message(STATUS "Python prefix = '${PYTHON_MODULE_PREFIX}', "
 # Directory setup
 #-------------------------------------------------------------------------------
 
+add_compile_options(-ggdb3 -O0)
+
 set(MLIR_NPCOMP_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(MLIR_NPCOMP_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -235,3 +237,9 @@ if(${TORCH_FOUND})
 else()
   message("Skipping pytorch frontend, because PyTorch not found!")
 endif()
+
+add_custom_target(torch_mlir)
+add_dependencies(torch_mlir
+  NPCOMPTorchMLIRExt
+  MLIRBindingsPythonExtension
+)

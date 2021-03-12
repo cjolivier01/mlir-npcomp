@@ -20,9 +20,8 @@ function(npcomp_detect_pybind11_install)
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       RESULT_VARIABLE STATUS
       OUTPUT_VARIABLE PACKAGE_DIR
-      #ERROR_QUIET
+      ERROR_QUIET
     )
-    message(STATUS "IOUHBHNUIOHBNNNNNNNNNNNNNNNNNNNNN ${PACKAGE_DIR}")
     if(NOT STATUS EQUAL "0")
       message(CHECK_FAIL "not found (install via 'pip install pybind11' or set pybind11_DIR)")
       return()

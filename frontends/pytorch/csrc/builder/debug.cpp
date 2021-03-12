@@ -11,7 +11,7 @@
 
 namespace torch_mlir {
 
-static bool debugTraceToStderrEnabled = false;
+static bool debugTraceToStderrEnabled = true;
 
 /// Whether debug tracing is enabled and calls to debugTrace() are more than
 /// a no-op.
