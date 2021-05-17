@@ -241,5 +241,5 @@ endif()
 add_custom_target(torch_mlir)
 add_dependencies(torch_mlir
   NPCOMPTorchMLIRExt
-  MLIRBindingsPythonExtension
+  #MLIRBindingsPythonExtension
 )

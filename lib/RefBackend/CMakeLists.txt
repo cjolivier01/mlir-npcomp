@@ -17,11 +17,11 @@ add_npcomp_library(NPCOMPRefBackend
 
   LINK_LIBS PUBLIC
   MLIRIR
-  MLIRLinalg
+  #MLIRLinalg
   MLIRSCFToStandard
   MLIRSCFTransforms
-  MLIRShapeToStandard
-  MLIRStandard
+  #MLIRShapeToStandard
+  #MLIRStandard
   MLIRStandardOpsTransforms
   MLIRStandardToLLVM
   )

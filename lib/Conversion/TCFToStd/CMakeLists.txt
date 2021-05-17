@@ -15,7 +15,7 @@ add_npcomp_conversion_library(NPCOMPTCFToStd
   MLIRPass
   MLIRTransforms
   MLIRShape
-  MLIRStandard
-  MLIRLinalg
+  #MLIRStandard
+  #MLIRLinalg
   NPCOMPTCFDialect
 )
